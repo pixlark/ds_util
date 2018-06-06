@@ -13,8 +13,41 @@ void print_platform_information()
 
 void vector_tests()
 {
-	printf("Testing vectors...\n");
-	// Nothing to test yet
+	printf("Testing Vector2f...\n");
+	assert( vector2f_compare(Vector2f(4, 5.5), Vector2f(4, 5.5)));
+	assert(!vector2f_compare(Vector2f(4, 5.7), Vector2f(3, 5.65)));
+	printf("  [x] vector2f_compare\n");
+
+	assert(vector2f_compare(
+			vector2f_add(Vector2f(3, 4.5), Vector2f(4, 1.5)),
+			Vector2f(7, 6)));
+	printf("  [x] vector2f_add\n");
+
+	assert(vector2f_compare(
+			vector2f_scalar_mult(Vector2f(5.5, 3.5), 2),
+			Vector2f(11, 7)));
+	printf("  [x] vector2f_scalar_mult\n");
+
+	assert(vector2f_dot_product(Vector2f(3.5, 4), Vector2f(2, 3)) == 19);
+	printf("  [x] vector2f_dot_product\n");
+	
+	printf("Testing Vector2i...\n");
+	assert( vector2i_compare(Vector2i(4, 5), Vector2i(4, 5)));
+	assert(!vector2i_compare(Vector2i(4, 5), Vector2i(3, 6)));
+	printf("  [x] vector2i_compare\n");
+
+	assert(vector2i_compare(
+			vector2i_add(Vector2i(3, 4), Vector2i(4, 1)),
+			Vector2i(7, 5)));
+	printf("  [x] vector2i_add\n");
+
+	assert(vector2i_compare(
+			vector2i_scalar_mult(Vector2i(5, 3), 2),
+			Vector2i(10, 6)));
+	printf("  [x] vector2i_scalar_mult\n");
+
+	assert(vector2i_dot_product(Vector2i(3, 4), Vector2i(2, 3)) == 18);
+	printf("  [x] vector2i_dot_product\n");
 }
 
 void rgba_tests()

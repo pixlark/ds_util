@@ -38,6 +38,12 @@ struct Vector2f {
 		: x(x), y(y) {};
 };
 
+bool     vector2f_compare(Vector2f v0, Vector2f v1);
+Vector2f vector2f_add(Vector2f v0, Vector2f v1);
+Vector2f vector2f_scalar_mult(Vector2f v0, float scalar);
+float    vector2f_dot_product(Vector2f v0, Vector2f v1);
+// TODO(pixlark): Cross product
+
 struct Vector2i {
 	int x;
 	int y;
@@ -46,6 +52,11 @@ struct Vector2i {
 	Vector2i(int x, int y)
 		: x(x), y(y) {};
 };
+
+bool     vector2i_compare(Vector2i v0, Vector2i v1);
+Vector2i vector2i_add(Vector2i v0, Vector2i v1);
+Vector2i vector2i_scalar_mult(Vector2i v0, int scalar);
+int      vector2i_dot_product(Vector2i v0, Vector2i v1);
 
 struct RGBA {
 	uint8_t r;
@@ -241,6 +252,50 @@ char * get_executable_path();
 #endif
 
 #ifdef DS_UTIL_IMPLEMENTATION
+
+// Vector2f
+
+bool vector2f_compare(Vector2f v0, Vector2f v1)
+{
+	return (v0.x == v1.x) && (v0.y == v1.y);
+}
+
+Vector2f vector2f_add(Vector2f v0, Vector2f v1)
+{
+	return Vector2f(v0.x + v1.x, v0.y + v1.y);
+}
+
+Vector2f vector2f_scalar_mult(Vector2f v0, float scalar)
+{
+	return Vector2f(v0.x * scalar, v0.y * scalar);
+}
+
+float vector2f_dot_product(Vector2f v0, Vector2f v1)
+{
+	return v0.x * v1.x + v0.y * v1.y;
+}
+
+// Vector2i
+
+bool vector2i_compare(Vector2i v0, Vector2i v1)
+{
+	return (v0.x == v1.x) && (v0.y == v1.y);
+}
+
+Vector2i vector2i_add(Vector2i v0, Vector2i v1)
+{
+	return Vector2i(v0.x + v1.x, v0.y + v1.y);
+}
+
+Vector2i vector2i_scalar_mult(Vector2i v0, int scalar)
+{
+	return Vector2i(v0.x * scalar, v0.y * scalar);
+}
+
+int vector2i_dot_product(Vector2i v0, Vector2i v1)
+{
+	return v0.x * v1.x + v0.y * v1.y;
+}
 
 void String_Builder::alloc()
 {
