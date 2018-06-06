@@ -92,14 +92,33 @@ void list_tests()
 	}
 	printf("  [x] push, push_many, pop\n");
 
+	list.remove(5);
+	{
+		int a[5] = {5, 7, 3, 4, 1};
+		assert(arrcmp(list.arr, a, 5));
+	}
+	list.push(1);
+	printf("  [x] remove\n");
+	
 	list.insert(20, 2);
 	{
 		int a[7] = {5, 7, 20, 3, 4, 1, 1};
 		assert(arrcmp(list.arr, a, 7));
 	}
-	printf("  [x] insert\n");
-	
 	list.remove(2);
+	{
+		int ti[3] = {9, 8, 9};
+		list.insert_many(ti, 3, 2);
+	}
+	{
+		int a[9] = {5, 7, 9, 8, 9, 3, 4, 1, 1};
+		assert(arrcmp(list.arr, a, 9));
+		assert(list.len == 9);
+	}
+	for (int i = 0; i < 3; i++) list.remove(2);
+	assert(list.len == 6);
+	printf("  [x] insert, insert_many\n");
+	
 	list.remove(1);
 	list.remove(3);
 	list.swap(0, 2);
@@ -108,7 +127,7 @@ void list_tests()
 		int a[4] = {1, 5, 3, 4};
 		assert(arrcmp(list.arr, a, 4));
 	}
-	printf("  [x] remove, swap, reverse\n");
+	printf("  [x] swap, reverse\n");
 
 	assert(list.find(3, intcmp) == 2);
 	printf("  [x] find\n");

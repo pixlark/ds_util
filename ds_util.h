@@ -82,6 +82,7 @@ struct List {
 	void    push(T to_push);
 	void    insert(T to_insert, int position);
 	void    push_many(T * to_push, int size);
+	void    insert_many(T * to_insert, int size, int position);
 	T       pop();
 
 	int     remove(int indice);
@@ -153,6 +154,20 @@ void List<T>::push_many(T * to_push, int size)
 	for (int i = 0; i < size; i++) {
 		arr[len++] = to_push[i];
 	}
+}
+
+template <typename T>
+void List<T>::insert_many(T * to_insert, int size, int position)
+{
+	assert(position >= 0 && position <= len);
+	while (len + size >= len_max) {
+		_grow();
+	}
+	memmove(arr + position + size, arr + position, sizeof(T) * (len - position));
+	for (int i = 0; i < size; i++) {
+		(arr + position)[i] = to_insert[i];
+	}
+	len += size;
 }
 
 template <typename T>
