@@ -15,3 +15,7 @@ This is a simple dynamically resizing array with a growth ratio of 2. There is n
 `auto_convert_path_seperators` takes a buffer and modifies the path seperators in it to conform to the current platform ('\\' for windows and '/' for everything else).
 
 `get_executable_path` returns a path to the executable on Windows using `GetModuleFileName` and on *nix using `readlink`.
+
+### Changelog
+
+*1.0* - Initial version based on old utility library
