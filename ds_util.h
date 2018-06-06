@@ -83,6 +83,9 @@ Vector2i vector2i_add(Vector2i v0, Vector2i v1);
 Vector2i vector2i_scalar_mult(Vector2i v0, int scalar);
 int      vector2i_dot_product(Vector2i v0, Vector2i v1);
 
+void auto_convert_path_seperators(char * path, int len);
+char * get_executable_folder_path();
+
 struct RGBA {
 	uint8_t r;
 	uint8_t g;
@@ -299,9 +302,6 @@ struct String_Builder {
 	char * str();
 };
 
-void auto_convert_path_seperators(char * path, int len);
-char * get_executable_path();
-
 #endif
 
 #ifdef DS_UTIL_IMPLEMENTATION
@@ -408,7 +408,7 @@ void auto_convert_path_seperators(char * path, int len)
 	}
 }
 
-char * get_executable_path()
+char * get_executable_folder_path()
 {
 	char buffer[512];
 	int string_len; // string_len is length NOT including null terminator

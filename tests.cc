@@ -9,6 +9,9 @@ void print_platform_information()
 	printf(
 		"Path Seperator: %c\n",
 		DS_PATH_SEPERATOR);
+	printf(
+		"Path to executable folder: %s\n",
+		get_executable_folder_path());
 }
 
 void vector_tests()
