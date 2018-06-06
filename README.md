@@ -2,6 +2,10 @@
 
 This is a single header-file library containing useful functions and structures. The implementation is guarded by `DS_UTIL_IMPLEMENTATION` in the spirit of the [stb libraries](https://github.com/nothings/stb).
 
+#### Vector2f and Vector2i
+
+Simple xy point structs. Functions exist for addition, scalar multiplication, and dot products.
+
 #### List\<T>
 
 This is a simple dynamically resizing array with a growth ratio of 2. There is no constructor, you simply initialize by calling `List<T>.alloc()`. Deallocate with `List<T>.dealloc()`. There's no protection against double freeing here, so make sure you don't call `dealloc` when you haven't called `alloc`.  The remaining `List<T>` functions are self-explanatory, just look in the struct definition.
