@@ -158,6 +158,16 @@ void string_builder_tests()
 	printf("  [x] append, prepend\n");
 }
 
+#define TEST_FILE_CONTENTS "1 2 3 4\n1 2 3 4\n1 2 3 4\n"
+
+
+void file_read_tests()
+{
+	printf("Testing load_string_from_file...\n");
+	char * str = load_string_from_file("test_file");
+	assert(strcmp(str, TEST_FILE_CONTENTS) == 0);
+}
+
 int main()
 {
 	defer { printf("This should fire at the end of testing.\n"); };
@@ -171,6 +181,8 @@ int main()
 	list_tests();
 	printf("\n");
 	string_builder_tests();
+	printf("\n");
+	file_read_tests();
 	printf("\n");
 
 	return 0;

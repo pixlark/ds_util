@@ -88,6 +88,8 @@ int      vector2i_dot_product(Vector2i v0, Vector2i v1);
 void auto_convert_path_seperators(char * path, int len);
 char * get_executable_folder_path();
 
+char * load_string_from_file(char * path);
+
 // defer statement
 template <typename F>
 struct Defer {
@@ -454,6 +456,20 @@ char * get_executable_folder_path()
 	char * dyn_string = (char*) malloc(strlen(buffer) + 1);
 	strcpy(dyn_string, buffer);
 	return dyn_string;
+}
+
+char * load_string_from_file(char * path)
+{
+	FILE * file = fopen(path, "r");
+	defer { fclose(file); };
+	if (file == NULL) return NULL;
+	int file_len = 0;
+	while (fgetc(file) != EOF) file_len++;
+	char * str = (char*) malloc(file_len + 1);
+	str[file_len] = '\0';
+	fseek(file, 0, SEEK_SET);
+	for (int i = 0; i < file_len; i++) str[i] = fgetc(file);
+	return str;
 }
 
 #endif
