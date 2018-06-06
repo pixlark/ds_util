@@ -79,15 +79,15 @@ struct List {
 	void    dealloc();
 	List<T> copy() const;
 	
-	void    push(T p);
-	void    push_many(T * p, int size);
+	void    push(T to_push);
+	void    push_many(T * to_push, int size);
 	T       pop();
 
 	int     remove(int indice);
-	bool    swap(int a, int b);
+	bool    swap(int i, int j);
 	void    reverse();
 	
-	int     find(T s, bool(equality)(T, T)) const;
+	int     find(T search_term, bool(equality)(T, T)) const;
 	T&      operator[](int indice)          const;
 	
 	void _grow();
@@ -123,22 +123,22 @@ const
 }
 
 template <typename T>
-void List<T>::push(T p)
+void List<T>::push(T to_push)
 {
 	if (len >= len_max) {
 		_grow();
 	}
-	arr[len++] = p;
+	arr[len++] = to_push;
 }
 
 template <typename T>
-void List<T>::push_many(T * p, int size)
+void List<T>::push_many(T * to_push, int size)
 {
 	while (len + size >= len_max) {
 		_grow();
 	}
 	for (int i = 0; i < size; i++) {
-		arr[len++] = p[i];
+		arr[len++] = to_push[i];
 	}
 }
 
@@ -154,11 +154,11 @@ T List<T>::pop()
 }
 
 template <typename T>
-int List<T>::find(T s, bool(equality)(T, T))
+int List<T>::find(T search_term, bool(equality)(T, T))
 const
 {
 	for (int i = 0; i < len; i++) {
-		if (equality(arr[i], s)) {
+		if (equality(arr[i], search_term)) {
 			return i;
 		}
 	}
@@ -171,9 +171,9 @@ bool List<T>::swap(int i, int j)
 	if (i < 0 || i >= len || j < 0 || j >= len) {
 		return false;
 	}
-	T a = arr[i];
+	T temp = arr[i];
 	arr[i] = arr[j];
-	arr[j] = a;
+	arr[j] = temp;
 	return true;
 }
 
