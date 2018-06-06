@@ -234,6 +234,9 @@ struct String_Builder {
 	char * str();
 };
 
+void auto_convert_path_seperators(char * path, int len);
+char * get_executable_path();
+
 #endif
 
 #ifdef DS_UTIL_IMPLEMENTATION
