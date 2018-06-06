@@ -20,6 +20,7 @@
 
 #else
 
+#include <unistd.h>
 #define DS_PATH_SEPERATOR '/'
 
 #endif
