@@ -18,4 +18,5 @@ This is a simple dynamically resizing array with a growth ratio of 2. There is n
 
 ### Changelog
 
+*1.1* - Vector convenience functions, List insert + insert_many
 *1.0* - Initial version based on old utility library
