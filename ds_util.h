@@ -80,6 +80,7 @@ struct List {
 	List<T> copy() const;
 	
 	void    push(T to_push);
+	void    insert(T to_insert, int position);
 	void    push_many(T * to_push, int size);
 	T       pop();
 
@@ -129,6 +130,18 @@ void List<T>::push(T to_push)
 		_grow();
 	}
 	arr[len++] = to_push;
+}
+
+template <typename T>
+void List<T>::insert(T to_insert, int position)
+{
+	assert(position >= 0 && position <= len);
+	if (len >= len_max) {
+		_grow();
+	}
+	memmove(arr + position + 1, arr + position, sizeof(T) * (len - position));
+	arr[position] = to_insert;
+	len++;
 }
 
 template <typename T>

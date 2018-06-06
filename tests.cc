@@ -92,6 +92,14 @@ void list_tests()
 	}
 	printf("  [x] push, push_many, pop\n");
 
+	list.insert(20, 2);
+	{
+		int a[7] = {5, 7, 20, 3, 4, 1, 1};
+		assert(arrcmp(list.arr, a, 7));
+	}
+	printf("  [x] insert\n");
+	
+	list.remove(2);
 	list.remove(1);
 	list.remove(3);
 	list.swap(0, 2);
