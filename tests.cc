@@ -160,6 +160,8 @@ void string_builder_tests()
 
 int main()
 {
+	defer { printf("This should fire at the end of testing.\n"); };
+	
 	print_platform_information();
 	printf("\n");
 	vector_tests();
@@ -169,6 +171,7 @@ int main()
 	list_tests();
 	printf("\n");
 	string_builder_tests();
-	
+	printf("\n");
+
 	return 0;
 }

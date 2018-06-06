@@ -32,6 +32,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include <utility> // for defer
+
 #if defined(_WIN32) || defined(_WIN64)
 #define DS_PLATFORM_WINDOWS 1
 #else
@@ -85,6 +87,32 @@ int      vector2i_dot_product(Vector2i v0, Vector2i v1);
 
 void auto_convert_path_seperators(char * path, int len);
 char * get_executable_folder_path();
+
+// defer statement
+template <typename F>
+struct Defer {
+    Defer( F f ) : f( f ) {}
+    ~Defer( ) { f( ); }
+    F f;
+};
+
+template <typename F>
+Defer<F> makeDefer( F f ) {
+    return Defer<F>( f );
+};
+
+#define __defer( line ) defer_ ## line
+#define _defer( line ) __defer( line )
+
+struct defer_dummy { };
+template<typename F>
+Defer<F> operator+( defer_dummy, F&& f )
+{
+    return makeDefer<F>( std::forward<F>( f ) );
+}
+
+#define defer auto _defer( __LINE__ ) = defer_dummy( ) + [ & ]( )
+//
 
 struct RGBA {
 	uint8_t r;
