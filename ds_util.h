@@ -195,8 +195,9 @@ void HashTable<K,V>::insert(K key, V value)
 		assert(counter++ < table_size); // Don't exceed maximum table size
 		position = (position + 1) % table_size;
 	}
-	table[position].key   = key;
-	table[position].value = value;
+	table[position].key    = key;
+	table[position].value  = value;
+	table[position].filled = true;
 }
 
 template <typename K, typename V>
@@ -204,7 +205,10 @@ int HashTable<K,V>::index(K key, V * value)
 {
 	int position = hash_func(key, table_size);
 	int counter = 0;
-	while (table[position].filled && !key_comp(table[position].key, key)) {
+	while (1) {
+		if (!table[position].filled) return 1;
+		if (key_comp(table[position].key, key)) break;
+		
 		if (counter++ >= table_size) return 1;
 		position = (position + 1) % table_size;
 	}
