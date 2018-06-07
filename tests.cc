@@ -160,12 +160,43 @@ void string_builder_tests()
 
 #define TEST_FILE_CONTENTS "1 2 3 4\n1 2 3 4\n1 2 3 4\n"
 
-
 void file_read_tests()
 {
 	printf("Testing load_string_from_file...\n");
 	char * str = load_string_from_file("test_file");
 	assert(strcmp(str, TEST_FILE_CONTENTS) == 0);
+}
+
+int int_hash(int k, int size)
+{
+	return k % size;
+}
+
+bool int_comp(int a, int b)
+{
+	return a == b;
+}
+
+void hash_table_tests()
+{
+	printf("Testing HashTable<K,V>...\n");
+	HashTable<int,char*> table;
+	table.init(100, int_hash, int_comp);
+	{
+		table.insert(15, "hello");
+		char * ret;
+		table.index(15, &ret);
+		assert(strcmp(ret, "hello") == 0);
+		printf("  [x] insert, index\n");
+	}
+	{
+		table.insert(215, "asdf");
+		table.insert(115, "other");
+		char * ret;
+		table.index(115, &ret);
+		assert(strcmp(ret, "other") == 0);
+		printf("  [x] collision probing\n");
+	}
 }
 
 int main()
@@ -183,6 +214,8 @@ int main()
 	string_builder_tests();
 	printf("\n");
 	file_read_tests();
+	printf("\n");
+	hash_table_tests();
 	printf("\n");
 
 	return 0;

@@ -154,6 +154,64 @@ struct List {
 	void _shrink();
 };
 
+template <typename K, typename V>
+struct HashPair {
+	K key;
+	V value;
+	bool filled;
+};
+
+template <typename K, typename V>
+struct HashTable {
+	HashPair<K,V> * table;
+	int             table_size;
+	
+	int  (*hash_func)(K,int);
+	bool (*key_comp)(K,K);
+
+	void init(int size, int (*hash_func)(K,int), bool (*key_comp)(K,K));
+	void insert(K key, V value);
+	int  index(K key, V * value);
+};
+
+template <typename K, typename V>
+void HashTable<K,V>::init(int size, int (*hash_func)(K,int), bool (*key_comp)(K,K))
+{
+	this->hash_func = hash_func;
+	this->key_comp = key_comp;
+	table_size = size;
+	table = (HashPair<K,V>*) malloc(sizeof(HashPair<K,V>) * size);
+	for (int i = 0; i < size; i++) {
+		table[i].filled = false;
+	}
+}
+
+template <typename K, typename V>
+void HashTable<K,V>::insert(K key, V value)
+{
+	int position = hash_func(key, table_size);
+	int counter = 0;
+	while (table[position].filled) {
+		assert(counter++ < table_size); // Don't exceed maximum table size
+		position = (position + 1) % table_size;
+	}
+	table[position].key   = key;
+	table[position].value = value;
+}
+
+template <typename K, typename V>
+int HashTable<K,V>::index(K key, V * value)
+{
+	int position = hash_func(key, table_size);
+	int counter = 0;
+	while (!key_comp(table[position].key, key)) {
+		if (counter++ >= table_size) return 1;
+		position = (position + 1) % table_size;
+	}
+	*value = table[position].value;
+	return 0;
+}
+
 template <typename T>
 void List<T>::alloc()
 {
