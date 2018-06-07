@@ -22,6 +22,8 @@ This is a simple dynamically resizing array with a growth ratio of 2. There is n
 
 ### Changelog
 
+*1.3.1* - Small change to HashTable<K,V>
+
 *1.3* - HashTable<K,V>
 
 *1.2.1* - String_Builder final_str for allocating a new copy, append and prepend use strlen by default
