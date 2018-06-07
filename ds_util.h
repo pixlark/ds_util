@@ -327,9 +327,11 @@ struct String_Builder {
 	void   alloc();
 	void   dealloc();
 	
-	void   prepend(char * str, int len);
-	void   append(char * str, int len);
+	void   prepend(char * str, int len = -1);
+	void   append(char * str, int len = -1);
+	
 	char * str();
+	char * final_str();
 };
 
 #endif
@@ -392,6 +394,7 @@ void String_Builder::dealloc()
 
 void String_Builder::prepend(char * str, int len)
 {
+	if (len == -1) len = strlen(str);
 	while (list.len + len >= list.len_max) {
 		list._grow();
 	}
@@ -406,6 +409,7 @@ void String_Builder::prepend(char * str, int len)
 
 void String_Builder::append(char * str, int len)
 {
+	if (len == -1) len = strlen(str);
 	if (len == -1) {
 		len = strlen(str);
 	}
@@ -427,6 +431,13 @@ char * String_Builder::str()
 	 */
 	list[list.len] = '\0';
 	return list.arr;
+}
+
+char * String_Builder::final_str()
+{
+	char * new_str = (char*) malloc(list.len + 1);
+	strcpy(new_str, str());
+	return new_str;
 }
 
 void auto_convert_path_seperators(char * path, int len)
