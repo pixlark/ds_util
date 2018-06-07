@@ -204,7 +204,7 @@ int HashTable<K,V>::index(K key, V * value)
 {
 	int position = hash_func(key, table_size);
 	int counter = 0;
-	while (!key_comp(table[position].key, key)) {
+	while (table[position].filled && !key_comp(table[position].key, key)) {
 		if (counter++ >= table_size) return 1;
 		position = (position + 1) % table_size;
 	}
