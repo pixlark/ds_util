@@ -208,7 +208,7 @@ int HashTable<K,V>::index(K key, V * value)
 		if (counter++ >= table_size) return 1;
 		position = (position + 1) % table_size;
 	}
-	*value = table[position].value;
+	if (value != NULL) *value = table[position].value;
 	return 0;
 }
 
